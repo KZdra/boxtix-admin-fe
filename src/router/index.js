@@ -2,15 +2,13 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // Views (lazy-loaded)
 const DashboardView = () => import("@/views/DashboardView.vue");
-const EventsView = () => import("@/views/EventsView.vue");
-const OrganizersView = () => import("@/views/OrganizersView.vue");
-const UsersView = () => import("@/views/UsersView.vue");
-const TransactionsView = () => import("@/views/TransactionsView.vue");
-const CategoriesView = () => import("@/views/CategoriesView.vue");
-const SettingsView = () => import("@/views/SettingsView.vue");
 
 // Layout
 import MainLayout from "@/components/layouts/MainLayout.vue";
+import ManagamentUserView from "@/views/ManagamentUserView.vue";
+import DaftarEventView from "@/views/DaftarEventView.vue";
+import DaftarTicketView from "@/views/DaftarTicketView.vue";
+import DaftarKategoriView from "@/views/DaftarKategoriView.vue";
 
 const routes = [
   {
@@ -23,34 +21,24 @@ const routes = [
         component: DashboardView,
       },
       {
-        path: "events",
-        name: "events",
-        component: EventsView,
+        path: "ManagementUserView",
+        name: "ManagementUserView",
+        component: ManagamentUserView,
       },
       {
-        path: "organizers",
-        name: "organizers",
-        component: OrganizersView,
+        path: "DaftarEventView",
+        name: "DaftarEventView",
+        component: DaftarEventView,
       },
       {
-        path: "users",
-        name: "users",
-        component: UsersView,
+        path: "DaftarTicketView",
+        name: "DaftarTicketView",
+        component: DaftarTicketView,
       },
       {
-        path: "transactions",
-        name: "transactions",
-        component: TransactionsView,
-      },
-      {
-        path: "categories",
-        name: "categories",
-        component: CategoriesView,
-      },
-      {
-        path: "settings",
-        name: "settings",
-        component: SettingsView,
+        path: "DaftarKategoriView",
+        name: "DaftarKategoriView",
+        component: DaftarKategoriView,
       },
     ],
   },

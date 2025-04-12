@@ -1,12 +1,20 @@
 <template>
-    <div>
-      <Header/>
-      <main class="w-full">
+  <div class="flex flex-col min-h-screen">
+    <Header />
+
+    <div class="flex flex-1">
+      <div class="shrink-0">
+        <Sidebar />
+      </div>
+
+      <main class="flex-1 overflow-auto bg-white">
         <router-view />
       </main>
     </div>
-  </template>
-  
-  <script setup lang="ts">
-  import Header from "../Header.vue";
-  </script>
+  </div>
+</template>
+
+<script setup>
+import Header from "../Header.vue";
+import Sidebar from "../Sidebar.vue";
+</script>
