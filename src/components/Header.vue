@@ -1,22 +1,31 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
+
+const router = useRouter()
+const authStore = useAuthStore()
+
+const isLoggedIn = computed(() => !!authStore.user)
+
+function handleLogout() {
+  authStore.logout()
+  router.push('/login')
+}
+</script>
+
 <template>
-  <header class="bg-sky-800 h-[74px]">
-    <nav
-      class="flex justify-between items-center px-14 py-0 mx-auto my-0 h-full max-w-[1349px] max-md:px-5 max-md:py-0"
-    >
-      <h1 class="text-3xl font-bold text-white">
-        <router-link to="/" class="p-2.5 text-lg text-white cursor-pointer">
-          BoxTix
-        </router-link>
-      </h1>
-      <div class="flex items-center gap-6">
-        <button
-          class="px-4 py-2.5 text-sm text-blue-800 bg-white rounded cursor-pointer border-[none]"
-        >
-          Host Your Event
-        </button>
-      </div>
-    </nav>
+  <header
+    class="fixed top-0 left-0 w-full h-[74px] bg-white z-40 shadow flex items-center justify-between px-6"
+  >
+    <div class="text-xl font-bold text-blue-600">BoxTix</div>
+    <div>
+      <button v-if="isLoggedIn" @click="handleLogout" class="text-sm text-red-500 hover:underline">
+        Logout
+      </button>
+      <button v-else @click="router.push('/login')" class="text-sm text-blue-500 hover:underline">
+        Login
+      </button>
+    </div>
   </header>
 </template>
-
-<script setup lang="ts"></script>
