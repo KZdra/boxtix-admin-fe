@@ -9,7 +9,10 @@ export default {
       colors: {
         boxblue: "#007bff",
         boxwhite: "ffffff",
-        boxyellow: "#fff13e", // warna tombol "Book Now"
+        boxyellow: "#fff13e", 
+        gsatu:"#01336d",
+        gdua:"#000b30",
+        gtiga:"#000000"
       },
     },
   },
