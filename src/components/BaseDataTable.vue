@@ -10,56 +10,56 @@
     </div>
 
     <DataTable
-      class="w-full border border-collapse border-gray-300"
-      :value="data"
-      stripedRows
-      responsiveLayout="scroll"
-      :paginator="true"
-      :rows="5"
-      :rowsPerPageOptions="[5, 10, 20]"
-      :globalFilterFields="columns.map((col) => col.field)"
-      :filters="filters"
-      filterDisplay="row"
+    class="w-full border border-collapse border-gray-300"
+    :value="data"
+    stripedRows
+    responsiveLayout="scroll"
+    :paginator="true"
+    :rows="5"
+    :rowsPerPageOptions="[5, 10, 20]"
+    :filters="filters"
+    filterDisplay="row"
+  >
+    <!-- Kolom Data -->
+    <Column
+      v-for="col in columns"
+      :key="col.field"
+      :field="col.field"
+      :header="col.header"
+      sortable
     >
-      <!-- Loop Kolom -->
-      <Column
-        v-for="col in columns"
-        :key="col.field"
-        :field="col.field"
-        :header="col.header"
-        sortable
-      >
-        <template v-if="col.slot" #body="slotProps">
-          <slot :name="col.slot" :data="slotProps.data" />
-        </template>
-      </Column>
+      <!-- Jika pakai slot (misalnya foto) -->
+      <template v-if="col.slot" #body="slotProps">
+        <slot :name="col.slot" :data="slotProps.data" />
+      </template>
+    </Column>
 
-      <!-- Kolom Aksi -->
-      <Column v-if="actions.length" header="Aksi">
-        <template #body="slotProps">
-          <div class="flex gap-2">
-            <Button
-              v-if="actions.includes('detail')"
-              icon="pi pi-search"
-              class="p-button-sm p-button-info"
-              @click="$emit('detail', slotProps.data)"
-            />
-            <Button
-              v-if="actions.includes('edit')"
-              icon="pi pi-pencil"
-              class="p-button-sm p-button-warning"
-              @click="$emit('edit', slotProps.data)"
-            />
-            <Button
-              v-if="actions.includes('delete')"
-              icon="pi pi-trash"
-              class="p-button-sm p-button-danger"
-              @click="$emit('delete', slotProps.data)"
-            />
-          </div>
-        </template>
-      </Column>
-    </DataTable>
+    <!-- Kolom Aksi -->
+    <Column v-if="actions.length" header="Aksi" class="text-center">
+      <template #body="slotProps">
+        <div class="flex gap-2 justify-center">
+          <Button
+            v-if="actions.includes('detail')"
+            icon="pi pi-search"
+            class="p-button-sm bg-blue-500 hover:bg-blue-600 text-white"
+            @click="$emit('detail', slotProps.data)"
+          />
+          <Button
+            v-if="actions.includes('edit')"
+            icon="pi pi-pencil"
+            class="p-button-sm bg-yellow-400 hover:bg-yellow-500 text-white"
+            @click="$emit('edit', slotProps.data)"
+          />
+          <Button
+            v-if="actions.includes('delete')"
+            icon="pi pi-trash"
+            class="p-button-sm bg-red-500 hover:bg-red-600 text-white"
+            @click="$emit('delete', slotProps.data)"
+          />
+        </div>
+      </template>
+    </Column>
+  </DataTable>
   </div>
 </template>
 
@@ -67,8 +67,6 @@
 import { defineProps, ref, watch } from 'vue'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
-import ColumnGroup from 'primevue/columngroup'
-import Row from 'primevue/row'
 
 const props = defineProps({
   data: Array,

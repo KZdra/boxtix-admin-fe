@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="fixed top-[74px] left-0 h-[calc(100vh-74px)] bg-sky-800 text-white shadow-lg rounded-br-3xl transition-all duration-300"
+    class="fixed top-[74px] left-0 h-[calc(100vh-74px)] bg-boxblue text-white shadow-lg rounded-br-3xl transition-all duration-300"
     :class="isExpanded ? 'w-64' : 'w-16'"
     @mouseenter="toggleSidebar"
     @mouseleave="toggleSidebar"
@@ -27,35 +27,32 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/authStore'
 
 const authStore = useAuthStore()
 
-const menu = [
-  { name: 'Dashboard', path: '/', icon: 'fa-solid fa-house' },
-  { name: 'Kategori', path: '/DaftarKategoriView', icon: 'fa-solid fa-tags' },
-  { name: 'Events', path: '/DaftarEventView', icon: 'fa-solid fa-calendar-days' },
-  { name: 'Ticket', path: '/DaftarTicketView', icon: 'fa-solid fa-ticket' },
-  { name: 'Management User', path: '/ManagementUserView', icon: 'fa-solid fa-users-gear' },
-]
-
-// Menerima prop isExpanded dari parent
 const props = defineProps({
   isExpanded: Boolean,
 })
 
-// Menentukan event yang akan dipancarkan untuk memperbarui isExpanded di parent
 const emit = defineEmits(['update:isExpanded'])
 
 const toggleSidebar = () => {
-  // Memancarkan event untuk memperbarui isExpanded
   emit('update:isExpanded', !props.isExpanded)
 }
-// Menyesuaikan menu berdasarkan role
+
+const menu = [
+  { name: 'Dashboard', path: '/', icon: 'fa-solid fa-house' },
+  { name: 'Events', path: '/DaftarEventView', icon: 'fa-solid fa-calendar-days' },
+  { name: 'Kategori Tiket', path: '/DaftarKategoriView', icon: 'fa-solid fa-tags' },
+  { name: 'Ticket', path: '/DaftarTicketView', icon: 'fa-solid fa-ticket' },
+  { name: 'Management User', path: '/ManagementUserView', icon: 'fa-solid fa-users-gear' },
+]
+
 const filteredMenu = computed(() => {
   const userRole = authStore.user?.role_id
   if (userRole === 1) {
-    return menu.filter((item) => item.name !== 'Kategori' && item.name !== 'Ticket')
+    return menu.filter((item) => item.name !== 'Kategori Tiket' && item.name !== 'Ticket')
   } else {
     return menu.filter((item) => item.name !== 'Management User')
   }
